@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interaktiv SVG | Eventnavn</title>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="./starter.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <a class="site-logo" href="./">J-Cosplay | Scene Creator</a>
+      <nav class="site-nav">
+        <button>Menu</button>
+        <ul class="menu" id="menu" popover>
+          <li><a href="./">Frontpage</a></li>
+          <li><a href="./svg.html" aria-current="page">Scene Creator</a></li>
+          <li><a href="./form.html">Application</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="svg-page">
+      <header class="svg-intro">
+        <div>
+
+          <h1>Scene Creator</h1>
+          <p>Pick the amount of props for your skit, and place them in their starting positions on the stage. <br> <br>
+            You
+            can
+            turn
+            your props by using the scroll wheel or Q and E on your keyboard.</p>
+        </div>
+        <div>
+          <img src="img/Untitled_Artwork 1.png" alt="">
+        </div>
+      </header>
+
+      <section class="svg-layout">
+        <div class="svg-placeholder">
+
+          <svg class="svg-scene" viewBox="0 0 3000 4000">
+            <use class="scene" href="img/sceneplan.svg#base"></use>
+            <g transform="translate(0 200.8932)">
+
+              <use class="cat" href="img/sceneplan.svg#cat"></use>
+              <use class="cog" href="img/sceneplan.svg#cog"></use>
+              <use class="flowe" href="img/sceneplan.svg#flowe"></use>
+              <use class="flowe1" href="img/sceneplan.svg#flowe1"></use>
+              <use class="star" href="img/sceneplan.svg#star"></use>
+              <use class="star1" href="img/sceneplan.svg#star1"></use>
+              <use class="heart" href="img/sceneplan.svg#heart"></use>
+              <use class="heart1" href="img/sceneplan.svg#heart1"></use>
+              <use class="circle" href="img/sceneplan.svg#circle"></use>
+              <use class="circle1" href="img/sceneplan.svg#circle1"></use>
+              <use class="rounded" href="img/sceneplan.svg#rounded"></use>
+              <use class="rounded2" href="img/sceneplan.svg#rounded2"></use>
+              <use class="rectangle" href="img/sceneplan.svg#rectangle"></use>
+              <use class="rectangle2" href="img/sceneplan.svg#rectangle2"></use>
+              <use class="arrow" href="img/sceneplan.svg#arrow"></use>
+              <use class="j-popvag" href="img/sceneplan.svg#j-popvag"></use>
+            </g>
+          </svg>
+        </div>
+
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Select your props</h2>
+            <button type="button" id="reset-props">Reset props</button>
+          </div>
+          <div class="accordion">
+            <!-- TODO: Lav om til details/summary -->
+            <div class="accordion-item">
+              <h3>Big Props</h3>
+              <details>
+                <summary>Amount</summary>
+                <fieldset>
+                  <legend>Your big props</legend>
+                  <label for="large-0">
+                    <input type="radio" id="large-0" name="large-props" value="0"> 0
+                  </label>
+                  <label for="large-1">
+                    <input type="radio" id="large-1" name="large-props" value="1"> 1
+                  </label>
+                  <label for="large-2">
+                    <input type="radio" id="large-2" name="large-props" value="2"> 2
+                  </label>
+                </fieldset>
+              </details>
+            </div>
+            <div class="accordion-item">
+              <h3>Medium Props</h3>
+              <details>
+                <summary>Amount</summary>
+                <fieldset>
+                  <legend>Your medium props</legend>
+                  <label for="medium-0">
+                    <input type="radio" id="medium-0" name="medium-props" value="0"> 0
+                  </label>
+                  <label for="medium-1">
+                    <input type="radio" id="medium-1" name="medium-props" value="1"> 1
+                  </label>
+                  <label for="medium-2">
+                    <input type="radio" id="medium-2" name="medium-props" value="2"> 2
+                  </label>
+                  <label for="medium-3">
+                    <input type="radio" id="medium-3" name="medium-props" value="3"> 3
+                  </label>
+                  <label for="medium-4">
+                    <input type="radio" id="medium-4" name="medium-props" value="4"> 4
+                  </label>
+                </fieldset>
+              </details>
+            </div>
+
+            <div class="accordion-item">
+              <h3>Small Props</h3>
+              <details>
+                <summary>Amount</summary>
+                <fieldset>
+                  <legend>Your small props</legend>
+                  <label for="small-0">
+                    <input type="radio" id="small-0" name="small-props" value="0"> 0
+                  </label>
+                  <label for="small-1">
+                    <input type="radio" id="small-1" name="small-props" value="1"> 1
+                  </label>
+                  <label for="small-2">
+                    <input type="radio" id="small-2" name="small-props" value="2"> 2
+                  </label>
+                  <label for="small-3">
+                    <input type="radio" id="small-3" name="small-props" value="3"> 3
+                  </label>
+                  <label for="small-4">
+                    <input type="radio" id="small-4" name="small-props" value="4"> 4
+                  </label>
+                  <label for="small-5">
+                    <input type="radio" id="small-5" name="small-props" value="5"> 5
+                  </label>
+                  <label for="small-6">
+                    <input type="radio" id="small-6" name="small-props" value="6"> 6
+                  </label>
+                  <label for="small-7">
+                    <input type="radio" id="small-7" name="small-props" value="7"> 7
+                  </label>
+                  <label for="small-8">
+                    <input type="radio" id="small-8" name="small-props" value="8"> 8
+                  </label>
+                </fieldset>
+              </details>
+
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>Eventnavn</p>
+      <p>Footer</p>
+    </div>
+  </footer>
+  <script src="./script.js"></script>
+</body>
+
+</html>

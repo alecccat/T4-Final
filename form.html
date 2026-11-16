@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formular | Eventnavn</title>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="./starter.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <a class="site-logo" href="./">J-Cosplay | Application</a>
+      <nav class="site-nav">
+        <button>Menu</button>
+        <ul class="menu" id="menu" popover>
+          <li><a href="./">Frontpage</a></li>
+          <li><a href="./svg.html" aria-current="page">Scene Creator</a></li>
+          <li><a href="./form.html">Application</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="form-page">
+      <header class="form-intro">
+        <h1>Application for the Danish Cosplay Championship</h1>
+        <p>This is the application for the Danish Cosplay Championship at J-Popcon. </p>
+        <img src="img/Untitled_Artwork 3.png" alt="">
+      </header>
+      <section id="tilmelding">
+        <div class="group-size">
+          <form class="form-placeholder" action="./opsamling.html">
+            <label for="field-group-size">Group Size</label>
+            <select id="field-group-size" name="group-size">
+              <option value="">Choose your group size</option>
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+        </div>
+        <div class="priority-group" data-name="qualifier">
+
+          <fieldset class="qualifiers" id="qualifier">
+            <legend>Qualifier</legend>
+            <p>Choose the qualifiers you wish to compete for. If none are selected you will not be eligeble to win any
+              of them at the Danish Cosplay Championship.</p>
+            <label for="field-qualifier-1" data-min-size="1" data-max-size="4">
+              <input type="checkbox" id="field-qualifier-1" name="qualifier" value="ecg">
+              ECG
+            </label>
+            <label for="field-qualifier-2" data-min-size="1" data-max-size="1">
+              <input type="checkbox" id="field-qualifier-2" name="qualifier" value="ncc">
+              NCC
+            </label>
+            <label for="field-qualifier-3" data-min-size="1" data-max-size="1">
+              <input type="checkbox" id="field-qualifier-3" name="qualifier" value="cwm">
+              CWM
+            </label>
+            <label for="field-qualifier-4" data-min-size="2" data-max-size="4">
+              <input type="checkbox" id="field-qualifier-4" name="qualifier" value="act">
+              ACT
+            </label>
+
+            <label for="field-qualifier-5" data-min-size="2" data-max-size="2">
+              <input type="checkbox" id="field-qualifier-5" name="qualifier" value="icl">
+              ICL
+            </label>
+          </fieldset>
+          <fieldset class="priority" hidden>
+            <legend>Prioritize your choices</legend>
+
+            <label class="priority-row">
+              1st priority
+              <select></select>
+            </label>
+
+            <label class="priority-row">
+              2nd priority
+              <select></select>
+            </label>
+
+            <label class="priority-row">
+              3rd priority
+              <select></select>
+            </label>
+
+            <label class="priority-row">
+              4th priority
+              <select></select>
+            </label>
+          </fieldset>
+        </div>
+
+
+
+        <div class="Cosplayer1" data-min-size="1" data-max-size="4">
+          <h2>Member One</h2>
+          <div class="names">
+            <label for="field-firstName">First Name</label>
+            <input type="text" id="field-firstName" name="firstName" placeholder="Ida">
+            <label for="field-lastName">Last Name</label>
+            <input type="text" id="field-lastName" name="lastName" placeholder="Zeldasen">
+            <label for="field-cosName">Cosplay Alias</label>
+            <input type="text" id="field-cosName" name="cosName" placeholder="Nico">
+          </div>
+          <div class="pronouns">
+            <fieldset>
+              <legend>Pronouns</legend>
+              <label for="field-pronoun-He/Him">
+                <input type="radio" id="field-pronoun-He/Him" name="pronoun" value="He/Him">
+                He/Him
+              </label>
+              <label for="field-pronoun-She/Her">
+                <input type="radio" id="field-pronoun-She/Her" name="pronoun" value="She/Her">
+                She/Her
+              </label>
+              <label for="field-pronoun-They/Them">
+                <input type="radio" id="field-pronoun-They/Them" name="pronoun" value="They/Them">
+                They/Them
+              </label>
+              <label for="field-pronoun-other">
+                <input type="radio" id="field-pronoun-other" name="pronoun" value="other">
+                <input type="text" id="field-pronoun-alt" name="pronounAlt" placeholder="Other">
+
+              </label>
+            </fieldset>
+          </div>
+          <div class="misc-info">
+
+            <label for="field-bday">Date of Birth</label>
+            <input type="date" id="field-bday" name="bday">
+            <label for="field-mail">E-mail</label>
+            <input type="email" id="field-mail" name="mail" placeholder="rupee@hyrule.hyeah">
+          </div>
+
+          <div class=character>
+            <label for="field-characterName">Character Name</label>
+            <input type="text" id="field-characterName" name="characterName" placeholder="Zelda">
+            <label for="field-characterSeries">Series</label>
+            <input type="text" id="field-characterSeries" name="characterSeries" placeholder="Legend of Zelda">
+            <label for="characterArt"> Character Reference </label>
+            <input type="file" id="characterArt" accept="image/png, image/jpeg">
+            <label for="field-characterSource">Source</label>
+            <textarea id="field-characterSource" name="characterSource" rows="4" maxlength="250"
+              placeholder="The Legend of Zelda: Hyrule Historia. Page 82 "></textarea>
+          </div>
+        </div>
+
+        <div class="Cosplayer2" data-min-size="2" data-max-size="4">
+          <h2>Member Two</h2>
+          <div class="name">
+            <label for="field-firstName2">First Name</label>
+            <input type="text" id="field-firstName2" name="firstName2" placeholder="Ida">
+            <label for="field-lastName2">Last Name</label>
+            <input type="text" id="field-lastName2" name="lastName2" placeholder="Zeldasen">
+            <label for="field-cosName2">Cosplay Alias</label>
+            <input type="text" id="field-cosName2" name="cosName2" placeholder="Nico">
+          </div>
+          <div class="pronouns">
+            <fieldset>
+              <legend>Pronouns</legend>
+              <label for="field-pronoun-he2">
+                <input type="radio" id="field-pronoun-he2" name="pronoun" value="He">
+                He/Him
+              </label>
+              <label for="field-pronoun-she2">
+                <input type="radio" id="field-pronoun-she2" name="pronoun" value="her">
+                She/Her
+              </label>
+              <label for="field-pronoun-them2">
+                <input type="radio" id="field-pronoun-them2" name="pronoun" value="they">
+                They/Them
+              </label>
+              <label for="field-pronoun-other2">
+                <input type="radio" id="field-pronoun-other2" name="pronoun" value="other">
+                <input type="text" id="field-pronoun-alt2" name="pronoun" value="Other">
+
+              </label>
+            </fieldset>
+          </div>
+          <div class="misc-info">
+
+            <label for="field-bday2">Date of Birth</label>
+            <input type="date" id="field-bday2" name="bday2">
+            <label for="field-mail2">E-mail</label>
+            <input type="email" id="field-mail2" name="mail2" placeholder="rupee@hyrule.hyeah">
+          </div>
+
+          <div class=character>
+            <label for="field-characterName2">Character Name</label>
+            <input type="text" id="field-characterName2" name="characterName2" placeholder="Zelda">
+            <label for="field-characterSeries2">Series</label>
+            <input type="text" id="field-characterSeries2" name="characterSeries2" placeholder="Legend of Zelda">
+            <label for="characterArt2"> Character Reference </label>
+            <input type="file" id="characterArt2" accept="image/png, image/jpeg">
+            <label for="field-characterSource2">Source</label>
+            <textarea id="field-characterSource2" name="characterSource2" rows="4" maxlength="250"
+              placeholder="The Legend of Zelda: Hyrule Historia. Page 82 "></textarea>
+          </div>
+        </div>
+        <div class="Cosplayer3" data-min-size="3" data-max-size="4">
+          <h2>Member Three</h2>
+          <div class="name">
+            <label for="field-firstName3">First Name</label>
+            <input type="text" id="field-firstName3" name="firstName3" placeholder="Ida">
+            <label for="field-lastName3">Last Name</label>
+            <input type="text" id="field-lastName3" name="lastName3" placeholder="Zeldasen">
+            <label for="field-cosName3">Cosplay Alias</label>
+            <input type="text" id="field-cosName3" name="cosName3" placeholder="Nico">
+          </div>
+          <div class="pronouns">
+            <fieldset>
+              <legend>Pronouns</legend>
+              <label for="field-pronoun-he3">
+                <input type="radio" id="field-pronoun-he3" name="pronoun" value="He">
+                He/Him
+              </label>
+              <label for="field-pronoun-she3">
+                <input type="radio" id="field-pronoun-she3" name="pronoun" value="her">
+                She/Her
+              </label>
+              <label for="field-pronoun-them3">
+                <input type="radio" id="field-pronoun-them3" name="pronoun" value="they">
+                They/Them
+              </label>
+              <label for="field-pronoun-other3">
+                <input type="radio" id="field-pronoun-other3" name="pronoun" value="other">
+                <input type="text" id="field-pronoun-alt3" name="pronoun" value="Other">
+
+              </label>
+            </fieldset>
+          </div>
+          <div class="misc-info">
+
+            <label for="field-bday3">Date of Birth</label>
+            <input type="date" id="field-bday3" name="bday3">
+            <label for="field-mail3">E-mail</label>
+            <input type="email" id="field-mail3" name="mail3" placeholder="rupee@hyrule.hyeah">
+          </div>
+          <div class=character>
+            <label for="field-characterName3">Character Name</label>
+            <input type="text" id="field-characterName3" name="characterName3" placeholder="Zelda">
+            <label for="field-characterSeries3">Series</label>
+            <input type="text" id="field-characterSeries3" name="characterSeries3" placeholder="Legend of Zelda">
+            <label for="characterArt3"> Character Reference </label>
+            <input type="file" id="characterArt3" accept="image/png, image/jpeg">
+            <label for="field-characterSource3">Source</label>
+            <textarea id="field-characterSource3" name="characterSource3" rows="4" maxlength="250"
+              placeholder="The Legend of Zelda: Hyrule Historia. Page 82 "></textarea>
+          </div>
+        </div>
+        <div class="Cosplayer4" data-min-size="4" data-max-size="4">
+          <h2>Member Four</h2>
+          <div class="name">
+            <label for="field-firstName4">First Name</label>
+            <input type="text" id="field-firstName4" name="firstName4" placeholder="Ida">
+            <label for="field-lastName4">Last Name</label>
+            <input type="text" id="field-lastName4" name="lastName4" placeholder="Zeldasen">
+            <label for="field-cosName4">Cosplay Alias</label>
+            <input type="text" id="field-cosName4" name="cosName4" placeholder="Nico">
+          </div>
+          <div class="pronouns">
+            <fieldset>
+              <legend>Pronouns</legend>
+              <label for="field-pronoun-he4">
+                <input type="radio" id="field-pronoun-he4" name="pronoun" value="He">
+                He/Him
+              </label>
+              <label for="field-pronoun-she4">
+                <input type="radio" id="field-pronoun-she4" name="pronoun" value="her">
+                She/Her
+              </label>
+              <label for="field-pronoun-them4">
+                <input type="radio" id="field-pronoun-them4" name="pronoun" value="they">
+                They/Them
+              </label>
+              <label for="field-pronoun-other4">
+                <input type="radio" id="field-pronoun-other4" name="pronoun" value="other">
+                <input type="text" id="field-pronoun-alt4" name="pronoun" value="Other">
+
+              </label>
+            </fieldset>
+          </div>
+          <div class="misc-info">
+
+            <label for="field-bday4">Date of Birth</label>
+            <input type="date" id="field-bday4" name="bday4">
+            <label for="field-mail4">E-mail</label>
+            <input type="email" id="field-mail4" name="mail4" placeholder="rupee@hyrule.hyeah">
+          </div>
+
+          <div class=character>
+            <label for="field-characterName4">Character Name</label>
+            <input type="text" id="field-characterName4" name="characterName4" placeholder="Zelda">
+            <label for="field-characterSeries4">Series</label>
+            <input type="text" id="field-characterSeries4" name="characterSeries4" placeholder="Legend of Zelda">
+            <label for="characterArt4"> Character Reference </label>
+            <input type="file" id="characterArt4" accept="image/png, image/jpeg">
+            <label for="field-characterSource4">Source</label>
+            <textarea id="field-characterSource4" name="characterSource4" rows="4" maxlength="250"
+              placeholder="The Legend of Zelda: Hyrule Historia. Page 82 "></textarea>
+          </div>
+        </div>
+        <button type="submit">Submit</button>
+        </form>
+      </section>
+      <form class="form-placeholder" action="./opsamling.html"></form>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>Eventnavn</p>
+      <p>Footer</p>
+    </div>
+  </footer>
+  <script src="./script.js"></script>
+</body>
+
+</html>

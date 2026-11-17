@@ -1,3 +1,31 @@
+const themeToggle = document.querySelector("#theme-toggle");
+
+if (themeToggle) {
+  const root = document.documentElement;
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+  // valgt tema, ellers systemets
+  const current = () =>
+    root.dataset.theme ?? (systemDark.matches ? "dark" : "light");
+
+  const update = () => {
+    const dark = current() === "dark";
+    themeToggle.setAttribute("aria-pressed", dark);
+    themeToggle.textContent = dark ? "☀ Light" : "☾ Dark";
+  };
+
+  themeToggle.addEventListener("click", () => {
+    const next = current() === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem("theme", next);
+    } catch {}
+    update();
+  });
+
+  update();
+}
+
 // Interaktiv SVG-side
 const svgPlaceholder = document.querySelector(".svg-placeholder");
 

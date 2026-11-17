@@ -5,6 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interaktiv SVG | Eventnavn</title>
+  <script> /*stopper forkert tema fra at blive kørt */
+    (() => {
+      try {
+        const t = localStorage.getItem("theme");
+        if (t) document.documentElement.dataset.theme = t;
+      } catch { }
+    })();
+  </script>
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
   <link rel="stylesheet" href="./starter.css">
   <link rel="stylesheet" href="./style.css">
@@ -165,7 +173,7 @@
   <footer class="site-footer">
     <div class="footer-content">
       <p>Eventnavn</p>
-      <p>Footer</p>
+      <button type="button" id="theme-toggle" aria-pressed="false" aria-label="Switch Themes">☾ Dark</button>
     </div>
   </footer>
   <script src="./script.js"></script>

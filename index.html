@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>J-Cosplay</title>
+  <title>Frontpage | J-Cos</title>
   <script> /*stopper forkert tema fra at blive kørt */
     (() => {
       try {
@@ -21,14 +21,16 @@
 <body>
   <header class="site-header">
     <div class="header-content">
-      <a class="site-logo" href="./">J-Cosplay | Frontpage</a>
+      <a class="site-logo" href="./">Frontpage | J-Cos</a>
       <nav class="site-nav">
-        <button>Menu</button>
-        <ul class="menu" id="menu" popover>
-          <li><a href="./">Frontpage</a></li>
-          <li><a href="./svg.html" aria-current="page">Scene Creator</a></li>
-          <li><a href="./form.html">Application</a></li>
-        </ul>
+        <button popovertarget="menupop">Menu</button>
+        <div id="menupop" popover>
+          <ul class="menu" id="menu">
+            <li><a href="./">Frontpage</a></li>
+            <li><a href="./svg.html" aria-current="page">Scene Creator</a></li>
+            <li><a href="./form.html">Application</a></li>
+          </ul>
+        </div>
       </nav>
     </div>
   </header>
@@ -100,8 +102,8 @@
 
   <footer class="site-footer">
     <div class="footer-content">
-      <p>Eventnavn</p>
-      <button type="button" id="theme-toggle" aria-pressed="false" aria-label="Switch Themes">☾ Dark</button>
+      <p>J-Cos</p>
+      <button type="button" id="theme-toggle" aria-pressed="false" aria-label="Switch Themes">Dark</button>
     </div>
   </footer>
   <script src="./script.js"></script>

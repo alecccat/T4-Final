@@ -6,6 +6,7 @@ html {
   --color-text: light-dark(#351633, #eed5c7);
   --color-muted: light-dark(#efc8bc, #753774);
   --color-border: light-dark(#f39592, #973b7b);
+  --box-shadow: light-dark(#973b7b50, #f3959250);
   color-scheme: light dark;
 
   --color-ombre: linear-gradient(
@@ -100,6 +101,7 @@ main > * {
   padding-bottom: 5px;
   width: 100%;
   background: var(--color-ombre);
+  border-bottom: 2px solid var(--color-muted);
 }
 
 #intro {
@@ -134,6 +136,7 @@ main > * {
   .regler,
   .test {
     position: relative;
+    border: 2px solid var(--color-surface);
   }
 
   div {
@@ -179,6 +182,7 @@ main > * {
     width: calc(var(--size) * 2.38 + var(--gap));
     height: var(--size);
     border-radius: 9999px;
+    border: 2px solid var(--color-surface);
     overflow: hidden;
     z-index: 1; /* lays elements on top. The smaller the numer, the higherthey lay, like layers in psd */
     color: var(--color-text);
@@ -350,6 +354,14 @@ main > * {
   gap: var(--space-2);
   align-items: start;
 
+  .panel {
+    min-width: 0;
+    grid-template-columns: minmax(
+      0,
+      1fr
+    ); /* the panel's own column can't grow */
+  }
+
   .panel-header {
     display: flex;
     justify-content: space-between;
@@ -358,6 +370,46 @@ main > * {
     flex-wrap: wrap;
   }
 
+  .accordion {
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+  }
+
+  .accordion-item {
+    min-width: 0;
+    border-radius: 20px;
+    padding: 0.5px 1rem 0.5px 2rem;
+    border: 2px solid var(--color-page);
+    background: var(--color-surface);
+
+    fieldset {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-end;
+      gap: 0.5rem 1rem;
+      min-width: 0;
+      padding: 0;
+      margin-bottom: 1rem;
+      border: none;
+    }
+    legend {
+      margin-bottom: 1rem;
+    }
+
+    fieldset label {
+      flex: 1 1 auto;
+      min-width: 0;
+      padding: 0.25rem 0.5rem;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      line-height: 1.2;
+    }
+
+    input {
+      padding: 1rem;
+    }
+  }
   #reset-props {
     justify-self: auto;
     align-self: auto;
@@ -370,33 +422,10 @@ main > * {
     font-weight: 700;
     font-size: smaller;
     cursor: pointer;
-    box-shadow: 1px 2px 4px #973b7b50;
+    box-shadow: 1px 2px 4px var(--box-shadow);
     transition:
       transform 0.15s,
       box-shadow 0.15s;
-  }
-
-  .accordion-item {
-    border: 1px solid var(--color-border);
-    border-radius: 20px;
-    padding: 5px 1rem 5px 2rem;
-
-    fieldset {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: flex-end;
-      gap: 0.5rem 1rem;
-      border: none;
-    }
-    legend {
-      margin-bottom: 0.5rem;
-    }
-
-    fieldset label {
-      display: flex;
-      flex-direction: column-reverse;
-      align-items: center;
-    }
   }
 
   @media (width > 800px) {
@@ -453,26 +482,24 @@ main > * {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: space-around;
     gap: 1rem;
     padding: var(--space-2);
-
-    label {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    label:not([hidden]) ~ label:not([hidden]) {
-      padding-left: 1rem;
-      border-left: 1px solid var(--color-border);
-    }
   }
 
   .priority {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+    grid-template-columns: 1fr;
     gap: 1rem;
     padding: var(--space-2);
+  }
+
+  .priority-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
   }
 
   .names,
@@ -506,7 +533,7 @@ main > * {
 select {
   appearance: base-select;
   width: 250px;
-  background: var(--color-page);
+  border-width: 2px;
   border-radius: 10px;
   padding: 8px;
 }
@@ -563,6 +590,7 @@ option:hover {
   display: grid;
   grid-template-columns: inherit;
   background: var(--color-ombre-rev);
+  border-top: 2px solid var(--color-muted);
 }
 
 .header-content,
@@ -643,7 +671,7 @@ option:hover {
 .svg-placeholder,
 .opsamling-placeholder {
   background: var(--color-muted);
-  border: 1px solid var(--color-surface);
+  border: 2px solid var(--color-surface);
   border-radius: 20px;
 }
 
@@ -665,11 +693,6 @@ option:hover {
   gap: var(--space-05);
 }
 
-.accordion-item {
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-}
-
 .accordion-item p {
   padding: 0 var(--space-1) var(--space-1);
   color: var(--color-muted);
@@ -682,7 +705,7 @@ option:hover {
   padding: 0.5rem 0.8rem;
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  color: inherit;
+  color: var(--color-text);
   text-decoration: none;
 }
 
@@ -694,11 +717,12 @@ fieldset {
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-end;
+  justify-content: space-between;
   gap: 0.5rem 1rem;
 
   border: 1px solid var(--color-border);
   border-radius: 15px;
-  padding: 1rem;
+  padding: 0;
 }
 @keyframes hero-parallax {
   from {
@@ -706,5 +730,14 @@ fieldset {
   }
   to {
     translate: 0 -20%;
+  }
+}
+@view-transition {
+  navigation: auto;
+  animation-duration: 1800ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
   }
 }

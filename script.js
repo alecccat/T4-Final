@@ -2,6 +2,7 @@ const themeToggle = document.querySelector("#theme-toggle");
 
 if (themeToggle) {
   const root = document.documentElement;
+  // hvis dark mode er sat som fave, brug dark mode
   const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
 
   // valgt tema, ellers systemets
@@ -10,11 +11,12 @@ if (themeToggle) {
 
   const update = () => {
     const dark = current() === "dark";
-    themeToggle.setAttribute("aria-pressed", dark);
-    themeToggle.textContent = dark ? "☀ Light" : "☾ Dark";
+    themeToggle.setAttribute("aria-pressed", dark); //aria pressed fortæller skærmlæser at knappen er klikket
+    themeToggle.textContent = dark ? "Light" : "Dark"; //skift mellem temaer
   };
 
   themeToggle.addEventListener("click", () => {
+    // lyt efter klick og skift tema
     const next = current() === "dark" ? "light" : "dark";
     root.dataset.theme = next;
     try {
@@ -95,132 +97,114 @@ if (allPropRadios.length) {
 const scene = document.querySelector(".svg-scene");
 
 if (scene) {
-  const draggables = scene.querySelectorAll("use:not(.scene)"); //dragggables er alt der ikke er er i scenemappen i svg.
-  const saved = JSON.parse(localStorage.getItem("prop-positions") || "{}");
+  const KEY = "prop-positions";
+  const PROP = "use:not(.scene)";
+  const props = [...scene.querySelectorAll(PROP)];
+  const originalOrder = [...props];
 
-  const toLocal = (evt, el) => {
-    //omregner musens placering, så det passer til svgens
-    const m = el.parentNode.getScreenCTM().inverse();
-    return new DOMPoint(evt.clientX, evt.clientY).matrixTransform(m);
+  // én tilstand pr. prop, gemt under propens href
+  const state = JSON.parse(localStorage.getItem(KEY) || "{}");
+  const get = (el) =>
+    (state[el.getAttribute("href")] ??= { x: 0, y: 0, a: 0, cx: 0, cy: 0 });
+  const save = () => localStorage.setItem(KEY, JSON.stringify(state));
+
+  let selected = null; // sidst valgte prop, den som Q og E drejer
+  let grab = null; // propen der trækkes lige nu
+
+  const apply = (el) => {
+    const { x, y, a, cx, cy } = get(el);
+    el.setAttribute(
+      "transform",
+      `translate(${x} ${y}) rotate(${a} ${cx} ${cy})`,
+    );
   };
 
-  let selected = null; // vælger den prop der sidst blev klikket på så den kan drejes
-  const resetters = [];
-  const originalOrder = [...draggables];
-
-  draggables.forEach((el) => {
-    const key = el.getAttribute("href");
-    const s = saved[key] ?? {};
-    let x = s.x ?? 0;
-    let y = s.y ?? 0;
-    let angle = s.a ?? 0;
-    let cx = s.cx ?? 0; // midten af propen, som den drejer om
-    let cy = s.cy ?? 0;
-    let grab = null;
-
-    const apply = () =>
-      el.setAttribute(
-        "transform",
-        `translate(${x} ${y}) rotate(${angle} ${cx} ${cy})`,
-      );
-
-    const save = () => {
-      saved[key] = { x, y, a: angle, cx, cy };
-      localStorage.setItem("prop-positions", JSON.stringify(saved));
-    };
-
-    // finder midten, mens propen er synlig. Gemmes så den kan bruges ved genindlæsning
-    const measure = () => {
-      try {
-        const b = el.getBBox();
-        if (b.width > 0) {
-          cx = b.x + b.width / 2;
-          cy = b.y + b.height / 2;
-        }
-      } catch {
-        // stopper script fra at crashe hvis der findes en fejl
-      }
-    };
-
-    const rotateBy = (deg) => {
-      //hvor meget der drejes
-      measure();
-      angle = (angle + deg) % 360;
-      apply();
-      save();
-    };
-    resetters.push(() => {
-      x = 0;
-      y = 0;
-      angle = 0;
-      cx = 0;
-      cy = 0;
-      el.removeAttribute("transform"); // tilbage til udgangspunktet
-    });
-
-    if (x || y || angle) apply(); // gendan gemt placering og drejning
-
-    el.addEventListener("pointerdown", (e) => {
-      //mus hold
-      selected = { rotateBy };
-      const p = toLocal(e, el);
-      grab = { dx: p.x - x, dy: p.y - y };
-      el.parentNode.appendChild(el);
-      el.setPointerCapture(e.pointerId);
-      el.classList.add("dragging");
-    });
-
-    el.addEventListener("pointermove", (e) => {
-      //mus hold move
-      if (!grab) return;
-      const p = toLocal(e, el);
-      x = p.x - grab.dx;
-      y = p.y - grab.dy;
-      apply();
-    });
-
-    const drop = () => {
-      //mus slip
-      if (!grab) return;
-      grab = null;
-      el.classList.remove("dragging");
-      measure();
-      save();
-    };
-
-    el.addEventListener("pointerup", drop); //begge slipper elementet hvis mussehold anulleres
-    el.addEventListener("pointercancel", drop);
-
-    // scroll for at dreje
-    el.addEventListener(
-      "wheel",
-      (e) => {
-        e.preventDefault(); // prevents scroll
-        selected = { rotateBy };
-        rotateBy(e.deltaY > 0 ? 5 : -5);
-      },
-      { passive: false },
+  // musens placering omregnet til SVGens koordinater
+  const toLocal = (e, el) =>
+    new DOMPoint(e.clientX, e.clientY).matrixTransform(
+      el.parentNode.getScreenCTM().inverse(),
     );
+
+  const rotate = (el, deg) => {
+    const s = get(el);
+    try {
+      // propens midte, som den drejer om. Skjulte props kan ikke måles
+      const b = el.getBBox();
+      if (b.width) {
+        s.cx = b.x + b.width / 2;
+        s.cy = b.y + b.height / 2;
+      }
+    } catch {
+      // propen beholder sin gamle midte
+    }
+    s.a = (s.a + deg) % 360;
+    apply(el);
+    save();
+  };
+
+  // gendan gemte placeringer
+  props.forEach((el) => {
+    if (state[el.getAttribute("href")]) apply(el);
   });
 
-  document.querySelector("#reset-props")?.addEventListener("click", () => {
-    resetters.forEach((reset) => reset());
+  // trækker proppen v mousedown
+  scene.addEventListener("pointerdown", (e) => {
+    const el = e.target.closest(PROP);
+    if (!el) return;
 
-    // genskab den oprindelige lagplacering
-    originalOrder.forEach((el) => el.parentNode.appendChild(el));
+    const s = get(el);
+    const p = toLocal(e, el);
+    grab = { el, dx: p.x - s.x, dy: p.y - s.y };
+    selected = el;
 
-    // fjern gemte placeringer
-    Object.keys(saved).forEach((key) => delete saved[key]);
-    localStorage.removeItem("prop-positions");
+    el.parentNode.appendChild(el); // løfter propen op over de andre
+    el.setPointerCapture(e.pointerId); // følger musen, selv uden for propen
+    el.classList.add("dragging");
+  });
 
-    selected = null;
+  scene.addEventListener("pointermove", (e) => {
+    if (!grab) return;
+    const s = get(grab.el);
+    const p = toLocal(e, grab.el);
+    s.x = p.x - grab.dx;
+    s.y = p.y - grab.dy;
+    apply(grab.el);
+  });
+
+  const drop = () => {
+    if (!grab) return;
+    grab.el.classList.remove("dragging");
+    save();
+    grab = null;
+  };
+  scene.addEventListener("pointerup", drop);
+  scene.addEventListener("pointercancel", drop);
+
+  // dreje på scroll
+  scene.addEventListener("wheel", (e) => {
+    const el = e.target.closest(PROP);
+    if (!el) return;
+    e.preventDefault(); // stopper siden fra at scrolle
+    selected = el;
+    rotate(el, e.deltaY > 0 ? 5 : -5);
   });
 
   document.addEventListener("keydown", (e) => {
-    //brug q og e til at dreje
     if (!selected || e.target.matches("input, textarea, select")) return;
-    if (e.key === "q") selected.rotateBy(-5);
-    if (e.key === "e") selected.rotateBy(5);
+    if (e.key === "q") rotate(selected, -5);
+    if (e.key === "e") rotate(selected, 5);
+  });
+
+  // nulstil props knap
+  document.querySelector("#reset-props")?.addEventListener("click", () => {
+    //kli på knap
+    props.forEach((el) => {
+      delete state[el.getAttribute("href")];
+      el.removeAttribute("transform"); //fjerner alle lagrede attributter
+    });
+    originalOrder.forEach((el) => el.parentNode.appendChild(el));
+    localStorage.removeItem(KEY); //fjerner infoen fra lokal
+    selected = null;
   });
 }
 

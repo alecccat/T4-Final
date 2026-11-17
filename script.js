@@ -67,7 +67,7 @@ if (allPropRadios.length) {
 const scene = document.querySelector(".svg-scene");
 
 if (scene) {
-  const draggables = scene.querySelectorAll("use:not(.scene)");
+  const draggables = scene.querySelectorAll("use:not(.scene)"); //dragggables er alt der ikke er er i scenemappen i svg.
   const saved = JSON.parse(localStorage.getItem("prop-positions") || "{}");
 
   const toLocal = (evt, el) => {
@@ -78,22 +78,7 @@ if (scene) {
 
   let selected = null; // vælger den prop der sidst blev klikket på så den kan drejes
   const resetters = [];
-  const originalOrder = [
-    "cat",
-    "cog",
-    "flowe",
-    "star",
-    "heart",
-    "circle",
-    "rounded",
-    "rectangle",
-    "heart1",
-    "circle1",
-    "star1",
-    "flowe1",
-    "rounded2",
-    "rectangle2",
-  ];
+  const originalOrder = [...draggables];
 
   draggables.forEach((el) => {
     const key = el.getAttribute("href");

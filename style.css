@@ -60,13 +60,17 @@ main > * {
   height: 516px;
   background: var(--color-ombre);
   z-index: 1;
+  overflow: clip;
 
   img {
     display: block;
     width: 100%;
-    height: 100%;
+    height: 130%; /*højere end boxen, så der er plads til at scrolle*/
     object-fit: cover;
     opacity: 0.5;
+    animation: hero-parallax linear both; /*bruger keyframe animationen*/
+    animation-timeline: scroll(root); /*animationen reagere på scroll*/
+    animation-range: 0px 516px;
   }
 }
 .countdown {
@@ -101,12 +105,13 @@ main > * {
     }
   }
 }
+
 #CTA {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin-top: 50px;
-  margin-bottom: 300px;
+  margin-top: 10px;
+  margin-bottom: 200px;
 
   .kort,
   .regler,
@@ -176,6 +181,18 @@ main > * {
       height: 100%;
       display: grid;
       place-content: center;
+      z-index: 1;
+    }
+
+    p {
+      position: absolute;
+      top: 0;
+      left: var(--size);
+      width: calc(100% - var(--size) * 2);
+      height: 100%;
+      display: grid;
+      place-content: center;
+      text-align: center;
       z-index: 1;
     }
 
@@ -252,6 +269,9 @@ main > * {
         right: auto;
         width: 100%;
         opacity: 0.5;
+      }
+      p {
+        display: none;
       }
     }
     :is(.kort, .regler, .test):hover + div,
@@ -662,4 +682,12 @@ fieldset {
   border: 1px solid #f39592;
   border-radius: 15px;
   padding: 1rem;
+}
+@keyframes hero-parallax {
+  from {
+    translate: 0 -10%;
+  }
+  to {
+    translate: 0 -20%;
+  }
 }

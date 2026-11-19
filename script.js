@@ -1,16 +1,16 @@
-const themeToggle = document.querySelector("#theme-toggle");
+const themeToggle = document.querySelector("#theme-toggle"); //finder tema toggle på siden
 
 if (themeToggle) {
+  //kører kun hvis den finder knappen
   const root = document.documentElement;
-  // hvis dark mode er sat som fave, brug dark mode
-  const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-  // valgt tema, ellers systemets
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)"); // hvis dark mode er sat som fave, brug dark mode
+
   const current = () =>
-    root.dataset.theme ?? (systemDark.matches ? "dark" : "light");
+    root.dataset.theme ?? (systemDark.matches ? "dark" : "light"); // valgt tema, ellers systemets ?? bruger kun højre side hvis venstre ikke har data
 
   const update = () => {
-    const dark = current() === "dark";
+    const dark = current() === "dark"; //tjekker om tema er dark
     themeToggle.setAttribute("aria-pressed", dark); //aria pressed fortæller skærmlæser at knappen er klikket
     themeToggle.textContent = dark ? "Light" : "Dark"; //skift mellem temaer
   };
@@ -21,15 +21,14 @@ if (themeToggle) {
     root.dataset.theme = next;
     try {
       localStorage.setItem("theme", next);
-    } catch {}
-    update();
+    } catch {} //stopper fejl hvis browseren blokere storage
+    update(); //opdatere for at få rigitge info
   });
 
-  update();
+  update(); //sætter rigtige tema label når siden leades
 }
 
 // Interaktiv SVG-side
-const svgPlaceholder = document.querySelector(".svg-placeholder");
 
 const propGroups = [
   {
@@ -52,23 +51,23 @@ const propGroups = [
   },
   { name: "large-props", classes: ["rounded2", "rectangle2"] },
 ];
-const MAX_PROPS = 8; //max antal
+const MAX_PROPS = 8; //max antal for alle grupper
 
 function getCount(name) {
-  //hvor mange er valgt,
+  //finder de valgte radioknapper i en gruppe
   const checked = document.querySelector(`input[name="${name}"]:checked`);
-  return checked ? parseInt(checked.value.replace(/\D/g, ""), 10) : 0;
+  return checked ? parseInt(checked.value.replace(/\D/g, ""), 10) : 0; //parse.Int laver det til talværdi/tælbare. hvis intet valgt =0 (/\D/g, "") fjerner alt undtagen tal. \D matcher alt der ikke er tal. /g beder koden finde alle matches, og ikke stoppe ved det første match
 }
 function updateAllProps() {
-  //hvis ingen = 0
-  const counts = propGroups.map((g) => getCount(g.name));
-  const total = counts.reduce((sum, n) => sum + n, 0);
+  const counts = propGroups.map((g) => getCount(g.name)); //antal valgte props
+  const total = counts.reduce((sum, n) => sum + n, 0); //lægger antallet sammen
 
   propGroups.forEach((group, gi) => {
-    // Vis/skjul props i SVG
+    //bestemmer hvilke grupper der skal gennemgårs
     group.classes.forEach((cls, i) => {
-      const el = document.querySelector(`.svg-scene .${cls}`);
-      if (el) el.style.display = i < counts[gi] ? "" : "none";
+      //cls er classnames og i er placeringen in gruppen
+      const el = document.querySelector(`.svg-scene .${cls}`); //kigger i svgen efter matchende cls navne
+      if (el) el.style.display = i < counts[gi] ? "" : "none"; //ser om elementet eksisterer, og hvis det
     });
 
     //  Skjul radios der ville give mere end 8
@@ -83,7 +82,7 @@ function updateAllProps() {
   });
 }
 const allPropRadios = document.querySelectorAll(
-  propGroups.map((g) => `input[name="${g.name}"]`).join(", "),
+  propGroups.map((g) => `input[name="${g.name}"]`).join(", "), // samler alle radioer
 );
 
 if (allPropRadios.length) {
@@ -97,25 +96,27 @@ if (allPropRadios.length) {
 const scene = document.querySelector(".svg-scene");
 
 if (scene) {
-  const KEY = "prop-positions";
-  const PROP = "use:not(.scene)";
-  const props = [...scene.querySelectorAll(PROP)];
-  const originalOrder = [...props];
+  //limiter til scene
+  const KEY = "prop-positions"; //den info lokal storage har
+  const PROP = "use:not(.scene)"; //vælger kun PROP og ikke scene
+  const props = [...scene.querySelectorAll(PROP)]; //finder props
+  const originalOrder = [...props]; //sætter original orden for props
 
   // én tilstand pr. prop, gemt under propens href
-  const state = JSON.parse(localStorage.getItem(KEY) || "{}");
+  const state = JSON.parse(localStorage.getItem(KEY) || "{}"); //JSON betyder JavaScript Object Notation. JSON.parse gør det før = til et JS objekt?
   const get = (el) =>
-    (state[el.getAttribute("href")] ??= { x: 0, y: 0, a: 0, cx: 0, cy: 0 });
-  const save = () => localStorage.setItem(KEY, JSON.stringify(state));
+    (state[el.getAttribute("href")] ??= { x: 0, y: 0, a: 0, cx: 0, cy: 0 }); //returnere props state hvis nogen, ellers lav n0 state
+  const save = () => localStorage.setItem(KEY, JSON.stringify(state)); //skriver det til local storage
 
   let selected = null; // sidst valgte prop, den som Q og E drejer
   let grab = null; // propen der trækkes lige nu
 
   const apply = (el) => {
+    //bestemmer proppes transform
     const { x, y, a, cx, cy } = get(el);
     el.setAttribute(
       "transform",
-      `translate(${x} ${y}) rotate(${a} ${cx} ${cy})`,
+      `translate(${x} ${y}) rotate(${a} ${cx} ${cy})`, //translate flytter den, rotate roterer lol
     );
   };
 

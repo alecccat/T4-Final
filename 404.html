@@ -5,6 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 | Eventnavn</title>
+  <script> /*stopper forkert tema fra at blive kørt */
+    (() => {
+      try {
+        const t = localStorage.getItem("theme");
+        if (t) document.documentElement.dataset.theme = t;
+      } catch { }
+    })();
+  </script>
+  <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+  <link rel="stylesheet" href="./starter.css">
+  <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./starter.css">
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -12,22 +23,25 @@
 <body>
   <header class="site-header">
     <div class="header-content">
-      <a class="site-logo" href="./">Eventnavn</a>
+      <a class="site-logo" href="./">J-Cos</a>
     </div>
   </header>
 
   <main>
     <section class="error-page">
-      <h1>Side ikke fundet</h1>
-      <p>Siden findes ikke.</p>
-      <a class="button" href="./">Gå til forsiden</a>
+      <h1>Ooops</h1>
+      <p>Battery-Boy couldn-t find the page</p>
+      <a class="button" href="./">Return to frontpage</a>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Eventnavn</p>
-    <p>Footer</p>
+    <div class="footer-content">
+      <p>J-Cos</p>
+      <button type="button" id="theme-toggle" aria-pressed="false" aria-label="Switch Themes">Dark</button>
+    </div>
   </footer>
+  <script src="./script.js"></script>
 </body>
 
 </html>

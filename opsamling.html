@@ -16,18 +16,25 @@
   <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
   <link rel="stylesheet" href="./starter.css">
   <link rel="stylesheet" href="./style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 
 <body>
   <header class="site-header">
     <div class="header-content">
-      <a class="site-logo" href="./">J-Cosplay | Scene Creator</a>
+      <div class="site-logo">
+        <a href="./"><img src="img/logo.svg" alt=""></a>
+        <span class="site-text">Application | J-Cos</span>
+      </div>
       <nav class="site-nav">
-        <button>Menu</button>
+        <button type="button" class="menu-button" popovertarget="menu">Menu</button>
         <ul class="menu" id="menu" popover>
-          <li><a href="./">Frontpage</a></li>
-          <li><a href="./svg.html" aria-current="page">Scene Creator</a></li>
-          <li><a href="./form.html">Application</a></li>
+          <li><a href="./index.html">Frontpage</a></li>
+          <li><a href="./svg.html">Scene Creator</a></li>
+          <li><a href=./" aria-current="page">Application</a></li>
         </ul>
       </nav>
     </div>
@@ -55,7 +62,8 @@
           <div class="character-info-member-1">
             <p>Character: <span id="member-character-1"></span></p>
             <p>Serier: <span id="member-series-1"></span></p>
-            <img id="member-reference-1" src="img/default.png" alt="">
+            <p>Reference:</p><img src="img/54378562359_dd538c9460_k.jpg" id="characterArt"
+              alt="Member One character reference">
             <p>Source:<span id="member-source-1"></span></p>
           </div>
 

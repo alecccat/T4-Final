@@ -556,6 +556,13 @@ option:hover {
   }
 }
 
+#member-reference {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .opsamling-intro {
   display: grid;
   gap: var(--space-1);
@@ -570,10 +577,14 @@ option:hover {
   display: grid;
   gap: var(--space-1);
   max-width: 60ch;
-}
 
-.error-page p {
-  color: var(--color-muted);
+  p {
+    color: var(--color-text);
+  }
+
+  .button {
+    border-radius: 10px;
+  }
 }
 
 /* Header og footer */
@@ -600,6 +611,7 @@ option:hover {
 
 .header-content {
   min-height: 4rem;
+  max-height: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -607,9 +619,23 @@ option:hover {
 }
 
 .site-logo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap;
   color: inherit;
   font-weight: 700;
   text-decoration: none;
+
+  img {
+    height: 3rem;
+  }
+  .site-text {
+    @media (width <= 600px) {
+      display: none;
+    }
+  }
 }
 
 .footer-content {
